@@ -1,2 +1,3 @@
-# mindbox_test_assignment
-Mindbox (test assignment)
+Test assignment for Mindbox internship
+
+To-do list
