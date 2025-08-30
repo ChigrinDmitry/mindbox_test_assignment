@@ -1,6 +1,6 @@
 import './App.css';
-import { Task } from './types';
-import { use, useState } from 'react';
+import type { Task } from './types';
+import { useState } from 'react';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
