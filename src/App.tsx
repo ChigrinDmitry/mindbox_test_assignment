@@ -1,3 +1,4 @@
+import { Space, Typography } from 'antd';
 import './App.css';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
@@ -30,6 +31,11 @@ function App() {
       <TaskList title='All' tasks={tasks} onToggle={toggleTask}></TaskList>
       <TaskList title='Remaining' tasks={remaining} onToggle={toggleTask}></TaskList>
       <TaskList title='Completed' tasks={completed} onToggle={toggleTask}></TaskList>
+      <Space style={{ marginTop: 24, width: '100%', justifyContent: 'space-between' }}>
+        <Typography.Text>
+          Active: {remaining.length}
+        </Typography.Text>
+      </Space>
     </>
   )
 }
