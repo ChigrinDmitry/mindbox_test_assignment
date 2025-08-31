@@ -21,6 +21,7 @@ function App() {
   }
 
   const remaining = useMemo(() => tasks.filter(task => !task.done), [tasks]);
+  const completed = useMemo(() => tasks.filter(task => task.done), [tasks]);
 
   return (
     <>
@@ -28,6 +29,7 @@ function App() {
       <TaskInput onAdd={addTask}/>
       <TaskList title='All' tasks={tasks} onToggle={toggleTask}></TaskList>
       <TaskList title='Remaining' tasks={remaining} onToggle={toggleTask}></TaskList>
+      <TaskList title='Completed' tasks={completed} onToggle={toggleTask}></TaskList>
     </>
   )
 }
