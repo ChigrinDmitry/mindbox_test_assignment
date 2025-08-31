@@ -1,7 +1,15 @@
-import Input from 'antd/es/input/Input';
+import { Input } from 'antd';
 
-const TaskInput = () => {
-    return <Input placeholder='Введите новую задачу'/>
+interface Props {
+    onAdd(title: string): void;
+}
+
+const TaskInput = ({ onAdd }: Props) => {
+    return <Input.Search
+        placeholder='Введите новую задачу'
+        enterButton='Добавить'
+        onSearch={onAdd}
+    />
 };
 
 export default TaskInput;
