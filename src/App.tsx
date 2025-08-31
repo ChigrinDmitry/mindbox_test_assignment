@@ -1,10 +1,13 @@
 import './App.css';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
+import { Tabs } from 'antd';
 import type { Task } from './types';
 import { useMemo, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import Footer from './components/Footer';
+
+const { TabPane } = Tabs;
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -31,18 +34,30 @@ function App() {
     <>
       <h1>To-Do List</h1>
       <TaskInput onAdd={addTask} />
-      <TaskList title="All" tasks={tasks} onToggle={toggleTask}></TaskList>
-      <TaskList
-        title="Remaining"
-        tasks={remaining}
-        onToggle={toggleTask}
-      ></TaskList>
-      <TaskList
-        title="Completed"
-        tasks={completed}
-        onToggle={toggleTask}
-      ></TaskList>
-      <Footer remainingCount={remaining.length} completedCount={completed.length} onClearCompleted={clearCompleted}/>
+
+      <Tabs defaultActiveKey="all">
+        <TabPane tab={`All (${tasks.length})`} key="all">
+          <TaskList tasks={tasks} onToggle={toggleTask}></TaskList>
+        </TabPane>
+        <TabPane tab={`Active (${remaining.length})`} key="remaining">
+          <TaskList
+            tasks={remaining}
+            onToggle={toggleTask}
+          ></TaskList>
+        </TabPane>
+        <TabPane tab={`Completed (${completed.length})`} key="completed">
+          <TaskList
+            tasks={completed}
+            onToggle={toggleTask}
+          ></TaskList>
+        </TabPane>
+      </Tabs>
+
+      <Footer
+        remainingCount={remaining.length}
+        completedCount={completed.length}
+        onClearCompleted={clearCompleted}
+      />
     </>
   );
 }

@@ -19,12 +19,10 @@ const Footer = ({
         justifyContent: 'space-between',
       }}
     >
-      <Typography.Text>Active: {remainingCount}</Typography.Text>
-      {completedCount > 0 && (
-        <Button type="link" onClick={onClearCompleted}>
+      <Typography.Text>{remainingCount} items left</Typography.Text>
+        <Button type="default" disabled={completedCount === 0} onClick={onClearCompleted}>
           Clear completed
         </Button>
-      )}
     </Space>
   );
 };
