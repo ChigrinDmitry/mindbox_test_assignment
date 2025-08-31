@@ -1,43 +1,63 @@
-import { Space, Typography } from 'antd';
+import { Space, Typography, Button } from 'antd';
 import './App.css';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
 import type { Task } from './types';
 import { useMemo, useState } from 'react';
-import { v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  
+
   const addTask = (title: string) => {
-    if (!title.trim()) return
-    setTasks(prev => [...prev, {id: uuid(), title, done: false }])
+    if (!title.trim()) return;
+    setTasks((prev) => [...prev, { id: uuid(), title, done: false }]);
   };
 
   const toggleTask = (id: string) => {
-    setTasks(prev => 
-      prev.map(task => 
-        task.id === id ? { ...task, done: !task.done } : task)
-    )
-  }
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, done: !task.done } : task
+      )
+    );
+  };
 
-  const remaining = useMemo(() => tasks.filter(task => !task.done), [tasks]);
-  const completed = useMemo(() => tasks.filter(task => task.done), [tasks]);
+  const clearCompleted = () => setTasks(tasks.filter((task) => !task.done));
+
+  const remaining = useMemo(() => tasks.filter((task) => !task.done), [tasks]);
+  const completed = useMemo(() => tasks.filter((task) => task.done), [tasks]);
 
   return (
     <>
       <h1>To-Do List</h1>
-      <TaskInput onAdd={addTask}/>
-      <TaskList title='All' tasks={tasks} onToggle={toggleTask}></TaskList>
-      <TaskList title='Remaining' tasks={remaining} onToggle={toggleTask}></TaskList>
-      <TaskList title='Completed' tasks={completed} onToggle={toggleTask}></TaskList>
-      <Space style={{ marginTop: 24, width: '100%', justifyContent: 'space-between' }}>
-        <Typography.Text>
-          Active: {remaining.length}
-        </Typography.Text>
+      <TaskInput onAdd={addTask} />
+      <TaskList title="All" tasks={tasks} onToggle={toggleTask}></TaskList>
+      <TaskList
+        title="Remaining"
+        tasks={remaining}
+        onToggle={toggleTask}
+      ></TaskList>
+      <TaskList
+        title="Completed"
+        tasks={completed}
+        onToggle={toggleTask}
+      ></TaskList>
+      <Space
+        style={{
+          marginTop: 24,
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Typography.Text>Active: {remaining.length}</Typography.Text>
+        {completed.length > 0 && (
+          <Button type="link" onClick={clearCompleted}>
+            Clear completed
+          </Button>
+        )}
       </Space>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
