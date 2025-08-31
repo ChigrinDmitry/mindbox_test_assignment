@@ -5,6 +5,7 @@ import TaskList from './components/TaskList';
 import type { Task } from './types';
 import { useMemo, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import Footer from './components/Footer';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -42,20 +43,7 @@ function App() {
         tasks={completed}
         onToggle={toggleTask}
       ></TaskList>
-      <Space
-        style={{
-          marginTop: 24,
-          width: '100%',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Typography.Text>Active: {remaining.length}</Typography.Text>
-        {completed.length > 0 && (
-          <Button type="link" onClick={clearCompleted}>
-            Clear completed
-          </Button>
-        )}
-      </Space>
+      <Footer remainingCount={remaining.length} completedCount={completed.length} onClearCompleted={clearCompleted}/>
     </>
   );
 }
