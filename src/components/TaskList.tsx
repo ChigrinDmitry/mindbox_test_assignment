@@ -1,4 +1,4 @@
-import { List, Typography } from 'antd';
+import { List } from 'antd';
 import type { Task } from '../types';
 import TaskItem from './TaskItem';
 
